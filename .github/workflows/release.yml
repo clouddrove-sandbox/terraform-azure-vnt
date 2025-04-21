@@ -1,13 +1,12 @@
-name: Release on PR Merge
+name: Tag Release
 
 on:
   pull_request:
-    types: [ closed ]
-    branches: [ master ]
+    types: [closed]
 
 jobs:
   release:
-    uses: clouddrove/github-shared-workflows/.github/workflows/tag-release.yml@feat/tag-release
+    uses: clouddrove-sandbox/terraform-azure-vnt/.github/workflows/workflow.yaml@master
     with:
       target_branch: master
     secrets:
