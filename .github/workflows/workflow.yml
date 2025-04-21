@@ -9,7 +9,9 @@ on:
     secrets:
       GH_TOKEN:
         required: true
-        
+      GITHUB:
+        required: true
+
 permissions:
   contents: write
   actions: write
