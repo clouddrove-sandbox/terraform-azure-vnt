@@ -108,6 +108,7 @@ jobs:
             echo "🚫 Release skipped due to 'no-tag' label."
           else
             echo "✅ Released ${{ steps.calc_version.outputs.new_version }} successfully."
+          fi
 
   changelog:
     needs: release
