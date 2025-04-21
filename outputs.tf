@@ -45,5 +45,5 @@ output "network_watcher_name" {
 
 output "ddos_existing_plan_id" {
   value       = try(azurerm_virtual_network.vnet[0].ddos_protection_plan, null)
-  description = "The ID of the DDoS Protection Plan"
+  description = "The ID of the DDoS Protection Plan that I like it"
 }
