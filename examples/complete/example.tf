@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 locals {
-  name        = "app"
+  name        = "apps"
   environment = "test"
 }
 
