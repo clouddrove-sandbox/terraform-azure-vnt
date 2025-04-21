@@ -51,7 +51,7 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 ##-----------------------------------------------------------------------------
-## Below resource will deploy ddos protection plan for virtual network.
+## Below resource will deploy ddos protection plan for virtual networksss.
 ##-----------------------------------------------------------------------------
 resource "azurerm_network_ddos_protection_plan" "example" {
   count               = var.enable_ddos_pp && var.enable == true ? 1 : 0
