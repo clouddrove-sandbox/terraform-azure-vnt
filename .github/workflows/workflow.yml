@@ -1,4 +1,4 @@
-name: Release on PR Merge
+name: Release and Changelog on PR Merge
 
 on:
   workflow_call:
@@ -7,35 +7,32 @@ on:
         required: true
         type: string
     secrets:
-      GH_TOKEN:
-        required: true
       GITHUB:
         required: true
+        description: 'PAT with repo permissions'
 
 permissions:
   contents: write
   actions: write
 
 jobs:
-  release:
+  release_and_changelog:
     runs-on: ubuntu-latest
     if: >
       ${{ github.event.pull_request.merged == true &&
           github.event.pull_request.base.ref == inputs.target_branch }}
-    outputs:
-      new_version: ${{ steps.calc_version.outputs.new_version }}
-      skip_tag: ${{ steps.skip_tag.outputs.skip }}
-
+    
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB }}
 
       - name: Set up Git
         run: |
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          git config --global user.email "84795582+clouddrove-ci@users.noreply.github.com"
+          git config --global user.name "clouddrove-ci"
 
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
@@ -89,32 +86,59 @@ jobs:
         if: steps.skip_tag.outputs.skip == 'false'
         run: |
           git tag ${{ steps.calc_version.outputs.new_version }}
-          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} ${{ steps.calc_version.outputs.new_version }}
+          git push https://x-access-token:${{ secrets.GITHUB }}@github.com/${{ github.repository }} ${{ steps.calc_version.outputs.new_version }}
 
-      - name: Create Release (initial)
+      - name: Create initial release
         if: steps.skip_tag.outputs.skip == 'false'
         uses: ncipollo/release-action@v1
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB }}
           tag: ${{ steps.calc_version.outputs.new_version }}
           name: ${{ steps.calc_version.outputs.new_version }}
           makeLatest: true
           body: |
             https://github.com/${{ github.repository }}/compare/${{ steps.get_latest_tag.outputs.latest_tag }}...${{ steps.calc_version.outputs.new_version }}
 
+      # Changelog generation steps
+      - name: Generate changelog
+        if: steps.skip_tag.outputs.skip == 'false'
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ secrets.GITHUB }}
+          excludeTypes: ""
+          includeInvalidCommits: false
+          tag: ${{ steps.calc_version.outputs.new_version }}
+          writeToFile: true
+          changelogFilePath: CHANGELOG.md
+
+      - name: Update release with changelog
+        if: steps.skip_tag.outputs.skip == 'false'
+        uses: ncipollo/release-action@v1.16.0
+        with:
+          allowUpdates: true
+          draft: false
+          makeLatest: true
+          name: ${{ steps.calc_version.outputs.new_version }}
+          tag: ${{ steps.calc_version.outputs.new_version }}
+          body: ${{ steps.changelog.outputs.changes }}
+          token: ${{ secrets.GITHUB }}
+
+      - name: Commit CHANGELOG.md
+        if: steps.skip_tag.outputs.skip == 'false'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          branch: ${{ inputs.target_branch }}
+          commit_user_name: clouddrove-ci
+          commit_user_email: 84795582+clouddrove-ci@users.noreply.github.com
+          commit_author: CloudDrove CI <84795582+clouddrove-ci@users.noreply.github.com>
+          commit_message: 'docs: update CHANGELOG.md for ${{ steps.calc_version.outputs.new_version }}'
+          file_pattern: CHANGELOG.md
+
       - name: Action Summary
         run: |
           if [[ "${{ steps.skip_tag.outputs.skip }}" == "true" ]]; then
             echo "🚫 Release skipped due to 'no-tag' label."
           else
-            echo "✅ Released ${{ steps.calc_version.outputs.new_version }} successfully."
+            echo "✅ Released ${{ steps.calc_version.outputs.new_version }} successfully with changelog."
           fi
-
-  changelog:
-    needs: release
-    if: needs.release.outputs.skip_tag == 'false'
-    uses: clouddrove/github-shared-workflows/.github/workflows/changelog.yml@1.3.3
-    secrets:
-      GITHUB: ${{ secrets.GITHUB }}
-    with:
-      branch: ${{ inputs.target_branch }}
