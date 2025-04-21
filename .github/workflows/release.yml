@@ -1,0 +1,14 @@
+name: Release on PR Merge
+
+on:
+  pull_request:
+    types: [ closed ]
+    branches: [ main ]
+
+jobs:
+  release:
+    uses: clouddrove/github-shared-workflows/.github/workflows/tag-release.yaml@feat/tag-release
+    with:
+      target_branch: master
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
