@@ -4,7 +4,7 @@ provider "azurerm" {
 
 locals {
   name        = "apps"
-  environment = "test"
+  environment = "test1"
 }
 
 ##-----------------------------------------------------------------------------
