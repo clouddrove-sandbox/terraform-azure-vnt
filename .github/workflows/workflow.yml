@@ -9,8 +9,7 @@ on:
     secrets:
       GH_TOKEN:
         required: true
-      GITHUB:
-        required: true
+        
 permissions:
   contents: write
   actions: write
@@ -107,13 +106,12 @@ jobs:
             echo "🚫 Release skipped due to 'no-tag' label."
           else
             echo "✅ Released ${{ steps.calc_version.outputs.new_version }} successfully."
-          fi
 
-  # Call the remote changelog workflow
   changelog:
     needs: release
     if: needs.release.outputs.skip_tag == 'false'
     uses: clouddrove/github-shared-workflows/.github/workflows/changelog.yml@1.3.3
-    secrets: inherit
+    secrets:
+      GITHUB: ${{ secrets.GITHUB }}
     with:
       branch: ${{ inputs.target_branch }}
