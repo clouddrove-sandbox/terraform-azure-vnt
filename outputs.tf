@@ -1,6 +1,6 @@
 output "vnet_id" {
   value       = try(azurerm_virtual_network.vnet[0].id, null)
-  description = "The id of the newly created vNet"
+  description = "The id of the newly created vSSSSSNet"
 }
 
 output "vnet_name" {
