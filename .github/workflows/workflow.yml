@@ -104,6 +104,8 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           tag: ${{ steps.calc_version.outputs.new_version }}
           name: ${{ steps.calc_version.outputs.new_version }}
+          allowUpdates: true
+          draft: false
           makeLatest: true
           body: |
             ${{ steps.changelog.outputs.changes }}
