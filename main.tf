@@ -1,5 +1,5 @@
 ##-----------------------------------------------------------------------------
-## Locals declarationfefeffefefeffefefefe555555fehhhrrrrrrrrrrrrrhhhhfffefefiyuy888888888888888888888888gggggggggggyyyyyyyyyyyyyyy
+## Locals declarationfefeffefefeffefefefe555555fehhhrrrrrrrrrrrrrhhhhfffefefiyuy888888888865666665688888888888888gggggggggggyyyyyyyyyyyyyyy
 ##-----------------------------------------------------------------------------
 locals {
   ddos_pp_id = var.enable_ddos_pp == false && var.existing_ddos_pp != null ? var.existing_ddos_pp : var.enable_ddos_pp && var.existing_ddos_pp == null ? azurerm_network_ddos_protection_plan.example[0].id : null
