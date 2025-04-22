@@ -106,8 +106,7 @@ jobs:
           name: ${{ steps.calc_version.outputs.new_version }}
           allowUpdates: true
           draft: false
-          prerelease: false
-          make_latest: true 
+          makeLatest: true
           body: |
             ${{ steps.changelog.outputs.changes }}
             
