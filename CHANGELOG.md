@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v8.0.0] - 2025-04-22
+### :bug: Bug Fixes
+- [`6f8d367`](https://github.com/clouddrove-sandbox/terraform-azure-vnt/commit/6f8d367aa379515cdf0744256f1c795784c4fb60) - Update main.tf *(commit by [@vedkops](https://github.com/vedkops))*
+
+
 ## [1.4.0] - 2024-01-03
 ### :memo: Documentation Changes
 - [`17abb3c`](https://github.com/clouddrove/terraform-azure-vnet/commit/17abb3c6a0097b2ef29cd2657ebd39e5079052ef) - update CHANGELOG.md for 1.0.4 *(commit by [@clouddrove-ci](https://github.com/clouddrove-ci))*
@@ -59,3 +64,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.3]: https://github.com/clouddrove/terraform-azure-vnet/compare/1.0.2...1.0.3
 [1.0.4]: https://github.com/clouddrove/terraform-azure-vnet/compare/1.0.3...1.0.4
 [1.4.0]: https://github.com/clouddrove/terraform-azure-vnet/compare/1.0.4...1.4.0
+[v8.0.0]: https://github.com/clouddrove-sandbox/terraform-azure-vnt/compare/v7.4.0...v8.0.0
