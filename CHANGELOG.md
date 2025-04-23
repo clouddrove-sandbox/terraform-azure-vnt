@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v9.6.0] - 2025-04-23
+### :bug: Bug Fixes
+- [`82dfde1`](https://github.com/clouddrove-sandbox/terraform-azure-vnt/commit/82dfde1eb7e078fd75bebce0245ce714e065597f) - Updated Main.tf *(commit by [@vedkops](https://github.com/vedkops))*
+
+
 ## [v9.5.0] - 2025-04-22
 ### :bug: Bug Fixes
 - [`88fb7ad`](https://github.com/clouddrove-sandbox/terraform-azure-vnt/commit/88fb7ad53b4aa756efa6afa13b6df38c50a4e65c) - Update main.tf *(commit by [@vedkops](https://github.com/vedkops))*
@@ -113,3 +118,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v9.3.1]: https://github.com/clouddrove-sandbox/terraform-azure-vnt/compare/v9.3.0...v9.3.1
 [v9.4.0]: https://github.com/clouddrove-sandbox/terraform-azure-vnt/compare/v9.3.1...v9.4.0
 [v9.5.0]: https://github.com/clouddrove-sandbox/terraform-azure-vnt/compare/v9.4.0...v9.5.0
+[v9.6.0]: https://github.com/clouddrove-sandbox/terraform-azure-vnt/compare/v9.5.0...v9.6.0
